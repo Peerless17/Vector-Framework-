@@ -1,9 +1,5 @@
 
-### Step 4: Configure `book.json`
 
-
-
-```json
 {
   "title": "Vector Framework Documentation",
   "description": "A comprehensive guide for the Vector Framework",
