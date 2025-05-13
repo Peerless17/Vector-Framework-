@@ -1,178 +1,272 @@
 # Vector Framework Documentation
 
-## File Structure
+## Introduction
 
-Below is a structured format for the Vector Framework documentation split into multiple Markdown files:
+The Vector Framework is a comprehensive library for building Windows Forms applications with advanced security, design, and utility features. It provides a collection of methods for managing window behaviors, customizing application appearances, adding security features, and more. This framework helps developers easily integrate functionalities like anti-debugging, file integrity checks, and custom UI effects, among others.
 
-### README.md
-This is the introduction page and contains the overview of the framework:
-```markdown
-# Vector Framework
-
-Vector Framework is a comprehensive library designed to simplify and enhance your Windows Forms applications by providing extensive features for window management, customization, security, and utilities.
+---
 
 ## Table of Contents
 
-- [Getting Started](getting-started.md)
-- [Window Controls](window-controls.md)
-- [Appearance Customization](appearance-customization.md)
-- [Security Features](security-features.md)
-- [Utility Features](utility-features.md)
-- [Bootstrapper](bootstrapper.md)
-- [Effects](effects.md)
-- [Design Features](design-features.md)
-- [Contributing](contributing.md)
-```
+* **Getting Started**
+* **Window Controls**
 
-### getting-started.md
-```markdown
-# Getting Started
+  * Minimize
+  * Maximize
+  * Close
+* **Appearance Customization**
 
-## Installation
+  * Set Background Color
+  * Set Background Image
+  * Set Top Most
+  * Apply Themes
+* **Security Features**
 
-1. Clone the repository.
-2. Include the Vector Framework DLL in your project.
-3. Add `using Vector_Builder;` in your C# files.
+  * Anti-Screenshot
+  * Process Blacklist
+  * Keylogger Detection
+  * HWID Spoofing
+  * Integrity Check
+* **Utility Features**
 
-## Example Usage
+  * Clear Textboxes
+  * Open URL
+  * Get Public IP
+  * Bootstrapper
+
+    * Download File
+    * Extract Zip
+    * Run Downloaded File
+* **Effects**
+
+  * FadeOutAndClose
+* **Design Features**
+
+  * Rounded Corners
+  * Shadow Effects
+* **Conclusion**
+
+---
+
+## Getting Started
+
+### Installation
+
+1. Download the Vector Framework source code from the repository.
+2. Add the `VectorFramework` namespace to your Windows Forms project.
+3. Start using the features by calling methods from the `VectorBuilder` class.
+
 ```csharp
-using Vector_Builder;
-
-public partial class MainForm : Form
-{
-    public MainForm()
-    {
-        InitializeComponent();
-        VectorBuilder.EnableFormDrag(this);
-    }
-}
-```
+using VectorFramework;
 ```
 
-### window-controls.md
-```markdown
-# Window Controls
+---
 
-## Features
+## Window Controls
 
-- **Minimize:** Minimizes the form.
-- **Maximize:** Maximizes the form.
-- **Close:** Closes the form.
+The Window Controls allow you to manage the window's state, such as minimizing, maximizing, or closing the form.
 
-### Example
+### Minimize
+
+Minimizes the window to the taskbar.
+
 ```csharp
 VectorBuilder.Minimize(this);
+```
+
+### Maximize
+
+Maximizes the window to fullscreen.
+
+```csharp
 VectorBuilder.Maximize(this);
+```
+
+### Close
+
+Closes the application immediately.
+
+```csharp
 VectorBuilder.Close(this);
 ```
-```
 
-### appearance-customization.md
-```markdown
-# Appearance Customization
+---
 
-## Features
+## Appearance Customization
 
-- **Set Background Color**
-- **Set Background Image**
+Customize the window's appearance with several built-in functions.
 
-### Example
+### Set Background Color
+
+Changes the background color of the form.
+
 ```csharp
 VectorBuilder.SetBackgroundColor(this, Color.Black);
-VectorBuilder.SetBackgroundImage(this, "https://yourimageurl.com");
-```
 ```
 
-### security-features.md
-```markdown
-# Security Features
+### Set Background Image
 
-## Features
+Sets a background image from a URL. The image is fetched asynchronously.
 
-- **Anti-Debug**
-- **Process Blacklist**
-- **Keylogger Detection**
-- **Integrity Check**
-
-### Example
 ```csharp
-VectorBuilder.EnableAntiDebug();
-VectorBuilder.AddProcessToBlacklist("notepad.exe");
-```
+await VectorBuilder.SetBackgroundImage(this, "https://yourimageurl.com");
 ```
 
-### utility-features.md
-```markdown
-# Utility Features
+### Set Top Most
 
-## Features
+Keeps the window on top of all other windows.
 
-- **Restart Application**
-- **Clear All TextBoxes**
-- **Open URLs**
-
-### Example
 ```csharp
-VectorBuilder.Restart();
+VectorBuilder.SetTopMost(this, true);
+```
+
+### Apply Themes
+
+Apply a custom theme to the form and its controls.
+
+```csharp
+VectorBuilder.ApplyTheme(this, Color.DarkSlateGray, Color.White);
+```
+
+---
+
+## Security Features
+
+### Anti-Screenshot
+
+Detects and kills any known screenshot tools like Lightshot or Snipping Tool.
+
+```csharp
+VectorBuilder.AntiScreenshot();
+```
+
+### Process Blacklist
+
+Kills any unauthorized processes running on the system.
+
+```csharp
+VectorBuilder.ProcessBlacklist(new[] { "maliciousProcess1", "maliciousProcess2" });
+```
+
+### Keylogger Detection
+
+Detects and blocks common keylogging tools.
+
+```csharp
+VectorBuilder.KeyloggerDetection();
+```
+
+### HWID Spoofing
+
+Detects if the system is using a hardware ID spoofer.
+
+```csharp
+string hwid = VectorBuilder.GetHWID();
+bool isSpoofed = VectorBuilder.IsHWIDSpoofed(hwid);
+```
+
+### Integrity Check
+
+Checks the integrity of a file using SHA-256 hashing.
+
+```csharp
+bool isValid = VectorBuilder.VerifyIntegrity("path/to/file.exe", "expectedSHA256Hash");
+```
+
+---
+
+## Utility Features
+
+### Clear Textboxes
+
+Clears all textboxes within a form.
+
+```csharp
 VectorBuilder.ClearTextBoxes(this);
+```
+
+### Open URL
+
+Opens a URL in the default browser.
+
+```csharp
 VectorBuilder.OpenUrl("https://yourlink.com");
 ```
-```
 
-### bootstrapper.md
-```markdown
-# Bootstrapper
+### Get Public IP
 
-## Features
+Retrieves the public IP address of the machine.
 
-- Downloads and extracts files from a given URL.
-
-### Example
 ```csharp
-VectorBuilder.DownloadAndExtractZip("https://example.com/file.zip", "C:\\DestinationPath");
+string ip = VectorBuilder.GetPublicIP();
 ```
-```
 
-### effects.md
-```markdown
-# Effects
+### Bootstrapper
 
-## Features
+#### Download File
 
-- **Fade Out and Close**
+Downloads a file from a given URL to a specified path.
 
-### Example
 ```csharp
-VectorBuilder.FadeOutAndClose(this);
+await VectorBuilder.DownloadFile("https://example.com/file.zip", "path/to/save/file.zip");
 ```
-```
 
-### design-features.md
-```markdown
-# Design Features
+#### Extract Zip
 
-## Features
+Extracts a ZIP file to a given directory.
 
-- **Themes**
-- **Rounded Corners**
-- **Shadow Effects**
-
-### Example
 ```csharp
-VectorBuilder.ApplyTheme(VectorBuilder.Themes.Dark);
+VectorBuilder.ExtractZip("path/to/file.zip", "path/to/extract/directory");
 ```
+
+#### Run Downloaded File
+
+Runs the downloaded executable.
+
+```csharp
+VectorBuilder.RunDownloadedFile("path/to/extracted/exe");
 ```
 
-### contributing.md
-```markdown
-# Contributing
+---
 
-We welcome contributions! Please follow these steps:
+## Effects
 
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Open a pull request.
+### FadeOutAndClose
 
-For major changes, please open an issue first to discuss what you would like to change.
+Fades out the form and closes it after the animation.
+
+```csharp
+await VectorBuilder.FadeOutAndClose(this);
 ```
+
+---
+
+## Design Features
+
+### Rounded Corners
+
+Applies rounded corners to the form.
+
+```csharp
+VectorBuilder.AddRoundedCorners(this);
+```
+
+### Shadow Effects
+
+Adds a shadow effect around the form to give it a more professional look.
+
+```csharp
+VectorBuilder.AddShadow(this);
+```
+
+---
+
+## Conclusion
+
+The Vector Framework is designed to simplify application development by providing an easy-to-use set of tools for window management, appearance customization, security features, and more. You can easily integrate these features into your own Windows Forms projects and enhance the overall user experience, security, and functionality.
+
+---
+
+## Contributing
+
+We welcome contributions to the Vector Framework! If you have any ideas, bug fixes, or new features you'd like to see, please feel free to submit a pull request or open an issue on our GitHub repository.
